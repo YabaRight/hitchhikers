@@ -164,6 +164,13 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
+        * Auto model and migration generation
+        */
+        Way\Generators\GeneratorsServiceProvider::class,
+        Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
+        User11001\EloquentModelGenerator\EloquentModelGeneratorProvider::class,
+
+        /*
          * Package Service Providers...
          */
 
