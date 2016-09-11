@@ -2,22 +2,26 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model {
+class BussinessCategory extends Model {
 
     /**
      * Generated
      */
 
-    protected $table = 'categories';
+    protected $table = 'bussiness_categories';
     protected $fillable = ['id', 'name', 'description'];
 
 
-    public function listings() {
+    public function listing_attributes() {
         return $this->belongsToMany(\App\Models\Listing::class, 'listing_attributes', 'category_id', 'listing_id');
     }
 
-    public function listings() {
+    public function listing_categories() {
         return $this->belongsToMany(\App\Models\Listing::class, 'listing_categories', 'category_id', 'listing_id');
+    }
+
+    public function attributes() {
+        return $this->hasMany(\App\Models\Attribute::class, 'bussiness_category_id', 'id');
     }
 
     public function listingAttributes() {

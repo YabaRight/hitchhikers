@@ -12,12 +12,16 @@ class Listing extends Model {
     protected $fillable = ['id', 'name', 'description', 'address', 'phone', 'x_coordinate', 'y_coordinate', 'email', 'twitter', 'facebook', 'instagram', 'hours', 'url', 'has_attributes', 'image'];
 
 
-    public function categories() {
-        return $this->belongsToMany(\App\Models\Category::class, 'listing_attributes', 'listing_id', 'category_id');
+    public function bussinessCategories() {
+        return $this->belongsToMany(\App\Models\BussinessCategory::class, 'listing_attributes', 'listing_id', 'category_id');
     }
 
-    public function categories() {
-        return $this->belongsToMany(\App\Models\Category::class, 'listing_categories', 'listing_id', 'category_id');
+    public function bussinessCategories() {
+        return $this->belongsToMany(\App\Models\BussinessCategory::class, 'listing_categories', 'listing_id', 'category_id');
+    }
+
+    public function hitCounts() {
+        return $this->hasMany(\App\Models\HitCount::class, 'listing_id', 'id');
     }
 
     public function listingAttributes() {

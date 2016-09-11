@@ -16,8 +16,8 @@ class ListingCategory extends Model {
         return $this->belongsTo(\App\Models\Listing::class, 'listing_id', 'id');
     }
 
-    public function category() {
-        return $this->belongsTo(\App\Models\Category::class, 'category_id', 'id');
+    public function bussinessCategory() {
+        return $this->belongsTo(\App\Models\BussinessCategory::class, 'category_id', 'id');
     }
 
 

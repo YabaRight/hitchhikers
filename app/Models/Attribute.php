@@ -9,8 +9,12 @@ class Attribute extends Model {
      */
 
     protected $table = 'attributes';
-    protected $fillable = ['id', 'name', 'description'];
+    protected $fillable = ['id', 'name', 'description', 'bussiness_category_id'];
 
+
+    public function bussinessCategory() {
+        return $this->belongsTo(\App\Models\BussinessCategory::class, 'bussiness_category_id', 'id');
+    }
 
 
 }
