@@ -5,6 +5,9 @@
 
     <div class="col-md-9">
         <div class="section">
+        <h3>Hits  </h3>
+            <br/>
+
             <div class=" ">
                 <div class=" ">
                     <div class="col-md-12">
@@ -21,7 +24,7 @@
                             @foreach($hits as $h)
                             <tr>
                                 
-                                <td>{{$h->business->name}}</td>
+                                <td>{{$h->listing->name}}</td>
                                 <td>{{$h->hits}}</td>
 
                             </tr>

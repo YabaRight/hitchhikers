@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class createBizRequest extends FormRequest
+class createPropertyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class createBizRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:listings',
-            // "email" => 'required|unique:listings',
-            "address" =>'required|unique:listings'
+            'name' => 'required'
         ];
     }
 }

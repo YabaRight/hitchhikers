@@ -4,6 +4,9 @@
 
 
     <div class="col-md-9">
+    <h3>All Categories </h3>
+            <br/>
+
         <section id="content" class="m-t-lg wrapper-md animated fadeInUp">
             <br/>
             <br/>
@@ -78,13 +81,13 @@
     </div>
 
 @stop
-@section('script')
+@section('scripts')
     <script>
         function editCat(catObj) {
             var cat_name = catObj.name;
             var cat_description = catObj.description;
             var cat_id = catObj.id;
-            $('.inputhidden').html('<input type="hidden" name="id" value="' + cat_id + '">');
+            $('.catinputhidden').html('<input type="hidden" name="id" value="' + cat_id + '">');
 
 
             $('#category_name').val(cat_name);

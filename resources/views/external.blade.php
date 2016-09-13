@@ -3,15 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="{{url('css/style.css')}}" rel="stylesheet"/>
+    <link href="{{url('css/style.css')}}"  rel="stylesheet"/>
 
     <link rel="stylesheet" href="{{url('css/bootstrap.css')}}"/>
     <link rel="stylesheet" href="{{url('css/font-awesome.min.css')}}"/>
     <link rel="stylesheet" href="{{url('css/normalize.css')}}"/>
     <link rel="stylesheet" href="{{url('css/style.css')}}"/>
 
-
-    {{--<link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">--}}
+ 
     <link href=" {{url('css/style.css')}}" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -19,8 +18,7 @@
 <div class="section">
     <div class="container">
         <div class="row">
-            @include('widgets.admin_menu_left')
-
+ 
             @yield("content")
 
 
