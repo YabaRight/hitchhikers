@@ -38,14 +38,14 @@
     <div class="cover-image"></div>
     <div class="container">
         <div class="row">
-            <div class="col-md-12 text-center"><h1>Yaba Business Directory</h1>
+            <div class="col-md-12 text-center"><h1>Yaba  Directory</h1>
                 <p>You have come to the right place</p><br><br></div>
             <div class="col-md-offset-3 col-md-6">
                 <form role="form" action="{{url('search')}}" method="post">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <div class="input-group"><input type="text" class="form-control" required name="search_token"
-                                                        placeholder="Search for a business"> <span
+                                                        placeholder="Search "> <span
                                     class="input-group-btn"> <button class="btn btn-success" type="submit">Go</button> </span>
                         </div>
                     </div>

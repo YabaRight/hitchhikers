@@ -25,12 +25,14 @@
                                        value="{{old('website')}}" type="url"></div>
                             <div class="form-group"><label class="control-label">Address</label><input
                                         class="form-control" placeholder="Address" name="address" required
-                                       value="{{old('address')}}" type="Address"></div>
+                                       value="{{old('address')}}" id="us3-address" type="Address"></div>
+                                       <div id="us3" style="width: 100%; height: 400px;"></div>
+                    <div class="clearfix">&nbsp;</div>
                             <div class="form-group"><label class="control-label">X-coordinates</label><input
-                                        class="form-control" name="x_cords" placeholder=""
+                                        class="form-control" name="x_cords" id="us3-lat" placeholder=""
                                       value="{{old('x_cords')}}"  type="text"></div>
                             <div class="form-group"><label class="control-label">Y-coordinates</label><input
-                                        class="form-control" name="y_cords" placeholder=""
+                                        class="form-control" name="y_cords" id="us3-lon" placeholder=""
                                       value="{{old('y_cords')}}"  type="text"></div>
                             <div class="form-group"><label class="control-label">Image</label>
                                 <input class="form-control" name="biz_image[]" accept="image/*" type="file" required  multiple>
@@ -56,7 +58,18 @@
                                         class="form-control" required name="hours" placeholder="8am - 5pm, Monday to Friday" value="{{old('hours')}}"
                                         type="text"></div>
 
+                                        <!-- Testing the location selector  -->
 
+                                        <div class="form-horizontal">
+                     
+                     
+                    
+                    <div class="m-t-small">
+                         
+                    </div>
+                    <div class="clearfix"></div>
+                    </div>
+                                        <!-- end testing -->
                             <hr/>
 
                             <h3> Attributes </h3>
@@ -104,7 +117,23 @@
                 });
             }
         
-
+                        $('#us3').locationpicker({
+                            location: {
+                                latitude: 6.517790600000001,
+                                longitude: 3.382686299999932
+                            },
+                            radius: 3,
+                            inputBinding: {
+                                latitudeInput: $('#us3-lat'),
+                                longitudeInput: $('#us3-lon'),
+                                radiusInput: $('#us3-radius'),
+                                locationNameInput: $('#us3-address')
+                            },
+                            enableAutocomplete: true,
+                            onchanged: function (currentLocation, radius, isMarkerDropped) {
+                                // alert("Location changed. New location (" + currentLocation.latitude + ", " + currentLocation.longitude + ")");
+                            }
+                        });
 
     </script>
 @stop

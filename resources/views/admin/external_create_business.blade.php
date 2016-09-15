@@ -26,13 +26,16 @@
                                        value="{{old('website')}}"  type="url"></div>
                             <div class="form-group"><label class="control-label">Address</label><input
                                         class="form-control" placeholder="Address" name="address" required
-                                       value="{{old('address')}}" type="Address"></div>
+                                       value="{{old('address')}}" id="us3-address" type="Address"></div>
+                                       <div id="us3" style="width: 100%; height: 400px;"></div>
+                    <div class="clearfix">&nbsp;</div>
                             <div class="form-group"><label class="control-label">X-coordinates</label><input
-                                        class="form-control" name="x_cords" placeholder=""
-                                        value="{{old('x_cords')}}" type="text"></div>
+                                        class="form-control" name="x_cords" id="us3-lat" placeholder=""
+                                      value="{{old('x_cords')}}"  type="text"></div>
                             <div class="form-group"><label class="control-label">Y-coordinates</label><input
-                                        class="form-control" name="y_cords" placeholder=""
-                                        value="{{old('y_cords')}}"  type="text"></div>
+                                        class="form-control" name="y_cords" id="us3-lon" placeholder=""
+                                      value="{{old('y_cords')}}"  type="text"></div>
+                                      
                             <div class="form-group"><label class="control-label">Image</label>
                                 <input class="form-control" name="biz_image[]" accept="image/*" type="file" required  multiple></div>
                             <div class="form-group"><label class="control-label">Description</label>
@@ -102,6 +105,25 @@
 
                 });
             }
+
+            $('#us3').locationpicker({
+                            location: {
+                                latitude: 6.517790600000001,
+                                longitude: 3.382686299999932
+                            },
+                            radius: 3,
+                            inputBinding: {
+                                latitudeInput: $('#us3-lat'),
+                                longitudeInput: $('#us3-lon'),
+                                radiusInput: $('#us3-radius'),
+                                locationNameInput: $('#us3-address')
+                            },
+                            enableAutocomplete: true,
+                            onchanged: function (currentLocation, radius, isMarkerDropped) {
+                                // alert("Location changed. New location (" + currentLocation.latitude + ", " + currentLocation.longitude + ")");
+                            }
+                        });
+
         
 
 

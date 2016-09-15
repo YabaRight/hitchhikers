@@ -20,5 +20,13 @@ class ListingCategory extends Model {
         return $this->belongsTo(\App\Models\BussinessCategory::class, 'category_id', 'id');
     }
 
+    public function count_listing($cat_id=null){
+        if (!$cat_id) {
+            return "0";
+        }
+        $countObj =  ListingCategory::where('category_id', $cat_id)->count();
+        return $countObj;
+    }
+
 
 }

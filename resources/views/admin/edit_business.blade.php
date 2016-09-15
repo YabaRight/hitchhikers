@@ -20,6 +20,7 @@
                                 $construcCat = "";
                                 $construcImg = "";
                                 $listing_id =  $b->id;
+                                // dd($listing_id)
                                 $bizCat = $b->bussinessCategoryListing;
                                 foreach ($bizCat as $bc) {
                                     $construcCat .= "<i>&nbsp;" . $bc->name . "</i>";
@@ -34,6 +35,13 @@
                             <form role="form" method="post" action="{{url('admin/update_business')}}"
                               enctype="multipart/form-data">
                             {{ csrf_field() }}
+                            <?php
+                                $x_cord = $b->x_coordinate;
+                                $y_cord = $b->y_coordinate;
+                                 
+                                $address = $b->address;
+                                 
+                            ?>
                             <div class="form-group"><label class="control-label">Business Name
                                     </label><input class="form-control" name="name" required  value='{{$b->name}}' placeholder="Enter Business Name" type="text"></div>
                             <div class="form-group"><label class="control-label">Email</label><input
@@ -44,13 +52,16 @@
                                       value='{{$b->url}}'  type="url"></div>
                             <div class="form-group"><label class="control-label">Address</label><input
                                         class="form-control" placeholder="Address" name="address" required
-                                       value='{{$b->address}}' type="Address"></div>
+                                       value='{{$b->address}}' id="us3-address" type="Address"></div>
+                                       <div id="us3" style="width: 100%; height: 400px;"></div>
+                    <div class="clearfix">&nbsp;</div>
+
                             <div class="form-group"><label class="control-label">X-coordinates</label><input
-                                        class="form-control" name="x_cords" placeholder=""
+                                        class="form-control" id="us3-lat" name="x_cords" placeholder=""
                                        value='{{$b->x_coordinate}}' type="text"></div>
                             <div class="form-group"><label class="control-label">Y-coordinates</label><input
                                         class="form-control" name="y_cords" placeholder=""
-                                       value='{{$b->y_coordinate}}' type="text"></div>
+                                       value='{{$b->y_coordinate}}'  id="us3-lon"  type="text"></div>
  
                             <div class="form-group"><label class="control-label">Description</label>
                                 <textarea class="form-control" required name="biz_description"> {{$b->description}}</textarea></div>
@@ -77,7 +88,7 @@
                             <div class="form-group"><label class="control-label">Category</label>   </div>
                             <hr>
                             <div class="form-group">
-                                {!! getCategoriesforBiz() !!}
+                                {!! getCategoriesforBizEdit($listing_id) !!}
                             </div>
 
                            
@@ -169,10 +180,12 @@
 @section('scripts')
     <script>
        var initial_usage_id = {{$initial_usage_id}};
-            makeCategoryCall(initial_usage_id);
-            console.log(initial_usage_id);
-            function makeCategoryCall(index) {
-                var url = "{{url('admin/ajax/get_cat_property')}}" +"/" +index + "";
+       var listing_id = {{$listing_id}};
+            makeCategoryCall(initial_usage_id,listing_id);
+            
+            function makeCategoryCall(index,listing_id) {
+                var url = "{{url('admin/ajax/get_cat_property_edit')}}" +"/" +index + "/" +listing_id;
+                console.log(url);
                 $.ajax({
                     url: url,
                     type: 'get',
@@ -194,5 +207,26 @@
                  window.location = imag;
             }
         }
+         
+        
+        $('#us3').locationpicker({
+                            location: {
+                                latitude: {{$x_cord}},
+                                longitude: {{$y_cord}},
+                                locationName: '{{$address}}'
+                            },
+                            locationName: '{{$address}}',
+                            radius: 3,
+                            inputBinding: {
+                                latitudeInput: $('#us3-lat'),
+                                longitudeInput: $('#us3-lon'),
+                                radiusInput: $('#us3-radius'),
+                                locationNameInput: $('#us3-address')
+                            },
+                            enableAutocomplete: true,
+                            onchanged: function (currentLocation, radius, isMarkerDropped) {
+                                // alert("Location changed. New location (" + currentLocation.latitude + ", " + currentLocation.longitude + ")");
+                            }
+                        });
     </script>
 @stop

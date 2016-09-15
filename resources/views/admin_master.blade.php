@@ -181,6 +181,10 @@
 </div>
 <script type="text/javascript" src="{{url('js/jquery.min.js')}}"></script>
 <script type="text/javascript" src="{{url('js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyAoWgxBWrrdF1XpdAG26fbifxwALZZJ23Y'></script>
+<script type="text/javascript" src="{{url('dist/locationpicker.jquery.js')}}"></script>
+
+ <script type="text/javascript" src="{{url('js/main.js')}}"></script>
 
 @yield("scripts")
 </body>

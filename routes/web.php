@@ -52,6 +52,9 @@ Route::get('/admin/modify_category_property/{id}','AdminController@modify_catego
 Route::get('/create_business','AdminController@create_business');
 Route::get('admin/biz/{id}','AdminController@view_biz');
 
+Route::get('admin/report','AdminController@report');
+Route::get('admin/view_category/{id}','AdminController@view_category_details');
+
 Route::get('admin/edit_biz/{id}','AdminController@edit_biz');
 Route::post('admin/update_business','AdminController@update_business');
 Route::get('admin/update_imgs/{listing_id}/{img}', 'AdminController@update_imgs');
@@ -77,7 +80,7 @@ Route::get('/auth/logout', 'Auth\LoginController@logout');
 
 
 //AJAX
-
+Route::get('/admin/ajax/get_cat_property_edit/{id}/{listing_id}','AdminController@get_cat_property_edit');
 Route::get('/admin/ajax/get_cat_property/{id}','AdminController@get_cat_property');
 Route::get('/admin/ajax/get_biz_property/{id}','AdminController@get_biz_property');
 

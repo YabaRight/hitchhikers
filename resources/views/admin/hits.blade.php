@@ -39,6 +39,7 @@
 
                             </tbody>
                         </table>
+                        {{ $hits->links() }}
                     </div>
                 </div>
             </div>
