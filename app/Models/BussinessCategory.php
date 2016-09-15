@@ -31,6 +31,14 @@ class BussinessCategory extends Model {
     public function listingCategories() {
         return $this->hasMany(\App\Models\ListingCategory::class, 'category_id', 'id');
     }
-
+    
+    public function count_listing($cat_id){
+         if (!$cat_id) {
+            return "0";
+        }
+        $countObj =  \App\Models\ListingCategory::where('category_id', $cat_id)->count();
+        return $countObj;
+        
+    }
 
 }

@@ -48,6 +48,56 @@ function getCategoriesWithAction()
 }
 
 /**
+ * @return  where business categories exists, it returns table rows of 4 columns
+ *             COL1: serial number
+ *             COL2 : Category Name
+ *             COL3: Count
+ *             COL4: action
+ * where action contains buttons for viewing.
+ *
+ * else: a table row with 1 column containing "<i> No Categories</i>"
+ */
+function getCategoriesReportWithAction()
+{
+    $catObj = new \App\Models\BussinessCategory();
+    $cCat = $catObj::get();
+    $branchArray = [];
+    $i = 1;
+    foreach ($cCat as $cb) {
+         $viewLink = "<a  href='javascript:;' onclick='view_category($cb->id)'   class='  btn btn-info btn-xs'>  View </a>";
+        $branchArray[] = "
+        <tr>
+            <td>" .
+            $i
+            . "</td>
+            
+            <td>" .
+            $cb->name
+            . "</td>
+             <td>" .
+            $cb->count_listing($cb->id)
+            . "</td>
+            <td>"
+            .
+            $viewLink
+            . "</td>
+        </tr>
+        ";
+        $i++;
+    }
+//
+    if (count($branchArray) > 0) {
+        return implode("", $branchArray);
+    } else {
+        return "  <tr>
+            <td> <i> No Categories</i></td>
+           
+        </tr>";
+    }
+
+}
+
+/**
  * @return  where business categories exists, it returns table rows of 3 columns
  *             COL1: serial number
  *             COL2 : Category Name
@@ -109,6 +159,44 @@ function getCategoriesforBiz()
         $catArray[] = "
                            <label>
                                 <input style='margin-left: 10px;'  type='radio' name='cat_id' value='" . $cb->id . "'  onclick='makeCategoryCall(\"$initial_usage_id\");' checked /> &nbsp; &nbsp; " . $cb->name
+            . "</label>
+                        ";
+    }
+
+//
+    if (count($catArray) > 0) {
+        $t = count($catArray) - 1;
+//        $catArray[] = "
+//                         <input class='hidden' id='last_id_index' value='" . $initial_usage_id . "' />" ;
+        return implode("", $catArray);
+    } else {
+        return "  <tr>
+            <td> <i> No Categories</i></td>
+        </tr>";
+    }
+
+}
+
+/**
+ * @parse   $listing_id 
+ * @return  where business categories exists, it returns input buttons for categories with type='checkbox'
+ *
+ * else: a table row with 1 column containing "<i> No Categories</i>"
+ *
+ *Note: this function is the same as  getCategoriesforBiz() but the listing_id is for the function makeCategoryCall() that is
+ *  triggered by the onclick event on the input tag.
+ */
+function getCategoriesforBizEdit($listing_id)
+{
+    $catObj = new \App\Models\BussinessCategory();
+    $cCat = $catObj::get();
+    $catArray = [];
+    $initial_usage_id = 0;
+    foreach ($cCat as $i => $cb) {
+        $initial_usage_id = $cb->id;
+        $catArray[] = "
+                           <label>
+                                <input style='margin-left: 10px;'  type='radio' name='cat_id' value='" . $cb->id . "'  onclick='makeCategoryCall(\"$initial_usage_id\",\"$listing_id\");' checked /> &nbsp; &nbsp; " . $cb->name
             . "</label>
                         ";
     }
@@ -236,7 +324,48 @@ function getFormInputsForCategory($id)
 }
 
 /**
- * @return  input elements for a category
+ * @return   edit input elements for a category
+ *
+ * else: a table row with 1 column containing "<i> No Attribute</i>"
+ */
+function getFormInputsEditsForCategory($listing_id,$id)
+{
+    if ((trim($id) == null) || ($id <= 0)) {
+        return "  <tr> <td> <i> No Categories</i></td>  </tr>";
+    }
+    $catObj = new \App\Models\ListingAttribute();
+    $cCat = $catObj::where(['listing_id'  => $listing_id, 'category_id'=> $id])->get();
+    $branchArray = [];
+    $i = 1;
+
+    // if this listing doesn't have any attribute information, create an avenue to add attribute information
+    if ($cCat->count() == 0) {
+        # code...
+        return getFormInputsForCategory($id);
+    }
+    
+    foreach ($cCat as $cb) {
+        $form_name = str_replace(' ', '_', $cb->attribute->name);
+        $branchArray[] = '
+        <div class="form-group"><label class="control-label">' . $cb->attribute->name . ' </label><input
+                                        class="form-control" required name="' . $form_name . '@@' . $cb->attribute->id . '" placeholder=""
+                                       value="' . $cb->value . ' " type="text"></div>
+        ';
+        $i++;
+    }
+//
+    if (count($branchArray) > 0) {
+        return implode("", $branchArray);
+    } else {
+        return "  <tr>
+            <td> <i> No Attribute</i></td>
+           
+        </tr>";
+    }
+}
+
+/**
+ * @return   elements for a category
  *
  * else: a table row with 1 column containing "<i> No property</i>"
  */

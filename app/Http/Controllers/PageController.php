@@ -15,7 +15,7 @@ class PageController extends Controller
     public function search(Request $request)
     {
         
-        return view("pages.search");
+        return "coming soon";//view("pages.search");
     }
 
     public function login()

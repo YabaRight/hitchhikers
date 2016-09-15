@@ -45,6 +45,10 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+    public function report(){
+        return view("admin.report");
+    }
+
     public function post_add_property(Requests\createPropertyRequest $request)
     {
 //        dd($request->all());
@@ -58,6 +62,7 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+   
     public function post_edit_category(Request $request)
     {
 //        dd($request->all());
@@ -266,36 +271,7 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-//     public function update_biz(Request $request)
-//     {
-// //        dd($request->all());
 
-//         $name = $request->name;
-//         $email = $request->email;
-//         $address = $request->address;
-//         $website = $request->website;
-//         $biz_description = $request->biz_description;
-//         $biz_phone1 = $request->biz_phone1;
-//         $biz_phone2 = $request->biz_phone2;
-//         $id = $request->id;
-
-
-//         $bizObj = new Listing();
-//         $bizObj = $bizObj->where(['id' => $id])->update([
-//             'name' => $name,
-//             'email' => $email,
-//             'website' => $website,
-//             'address' => $address,
-//             'phone1' => $biz_phone1,
-//             'phone2' => $biz_phone2,
-//             'description' => $biz_description
-//         ]);
-
-
-//         session()->flash('alert-success', 'Business Update Was Successfully.  ');
-//         return redirect()->back();
-
-//     }
 
     public function update_property(Request $request)
     {
@@ -414,6 +390,12 @@ class AdminController extends Controller
 //        return ($id);
     }
 
+     public function get_cat_property_edit($id = null,$listing_id=null)
+    {
+        return getFormInputsEditsForCategory($listing_id,$id);
+//        return ($id);
+    }
+
     public function get_biz_property($id = null)
     {
         return getDisplayPropertiesForListing($id);
@@ -443,7 +425,7 @@ class AdminController extends Controller
 
     public function all_businesses()
     {
-        $biz = Listing::get();
+        $biz = Listing::paginate(10);
         // dd($biz);
         return view("admin.all_businesses")->with(compact('biz'));
     }
@@ -707,9 +689,31 @@ class AdminController extends Controller
 
     public function hits()
     {
-        $hits = HitCount::get();
+        $hits = HitCount::paginate(20);
         return view("admin.hits")->with(compact("hits"));
     }
+
+     public function view_category_details($id = null){
+        if ( ($id == null)||($id < 1) ) {
+            # code...
+            session()->flash('alert-info', 'Category Error.  ');
+            return redirect()->back();
+        }
+
+        $getListingIdsForCategory =  ListingCategory::where('category_id',$id)->pluck('listing_id')->toArray();
+        $getCatObj = BussinessCategory::where('id',$id)->first();
+        if (count($getCatObj) > 0 ) {
+            # code...
+            $catName = $getCatObj->name;
+        }else{
+            $catName = "Invalid Category";
+        }
+        
+        $biz = Listing::whereIn('id', $getListingIdsForCategory)->paginate(10);
+        $biz_count = Listing::whereIn('id', $getListingIdsForCategory)->count();
+        return view("admin.view_category_listing")->with(compact('catName','biz','biz_count'));
+    }
+
 
     public function biz_view($id = null)
     {

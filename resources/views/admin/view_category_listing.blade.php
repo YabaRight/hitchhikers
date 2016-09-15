@@ -5,7 +5,8 @@
 
 <div class="col-md-9">
     <div class="section">
-    <h3>All Businesses </h3>
+    <h3>{!! $catName !!}</h3> 
+    <h5>Total: {{$biz_count}}</h5>
             <br/>
 
         <div class=" ">
@@ -47,7 +48,7 @@
 
                                     </div>
                                     @endforeach
-                                    
+
                                     {{ $biz->links() }}
                                 </div>
                                 @else
