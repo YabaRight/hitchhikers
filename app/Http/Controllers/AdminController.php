@@ -37,7 +37,7 @@ class AdminController extends Controller
     public function post_add_categories(Requests\createCategorRequest $request)
     {
 //        dd($request);
-        //save a new category
+        // save a new category
         $catObj = new BussinessCategory();
         $catObj->name = $request->name;
         $catObj->description = $request->description;
