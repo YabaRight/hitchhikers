@@ -72,8 +72,10 @@
 
                             </div>
 
-                            <button type="submit" class="btn btn-default">Submit</button>
+                            <button type="submit" class="btn btn-default">Submit</button><br />
                         </form>
+                        <br />
+                        <br />
                     @else
                         <h2> Create A Category First Before You Can Create Businesses</h2>
                     @endif

@@ -37,7 +37,7 @@ class AdminController extends Controller
     public function post_add_categories(Requests\createCategorRequest $request)
     {
 //        dd($request);
-        //save a new category
+        // save a new category
         $catObj = new BussinessCategory();
         $catObj->name = $request->name;
         $catObj->description = $request->description;
@@ -68,7 +68,7 @@ class AdminController extends Controller
 //        dd($request->all());
         //save a new category
         $catObj = new Category();
-        $catQ = $catObj->where(['id' => $request->id])->update([
+        $catObj->where(['id' => $request->id])->update([
             'name' => $request->cat_name
         ]);
 
@@ -767,6 +767,18 @@ class AdminController extends Controller
         session()->flash('alert-danger', 'Image is not valid');
         return redirect()->back();
 
+    }
+    public function saveLocationToSession(Request $request)
+    {
+        // Specifying a default value...
+        $lt = session('lat', '0');
+        $lng = session('lng', '0');
+
+        // Store a piece of data in the session...
+        session(['lat' => $request->gps_lat]);
+        session(['lng' => $request->gps_lng]);
+
+        return "$request->gps_lat , $request->gps_lng";
     }
 
 

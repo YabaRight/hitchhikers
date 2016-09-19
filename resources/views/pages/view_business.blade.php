@@ -1,25 +1,34 @@
-@extends('master_layout')
+@extends('ui1')
 
 @section('content')
 
 
     <div class="col-md-12">
+        <br />
         <div class="section">
             <div class=" ">
                 @if($biz->count() > 0)
                     <div class=" ">
 
                         @foreach( $biz as $b)
-                            <div class="col-md-6 col-md-offset-3 table-bordered">
+                            <div class="col-md-8 col-md-offset-2 table-bordered">
+                                <br />
                                 <?php
-                                $image = json_decode($b->image_url);
-                                $construcCat = "";
-                                $bizCat = $b->bussinessCategories;
+                                $images = json_decode($b->image);
+                                $construcCat = $construcImg = "";
+                                $bizCat = $b->bussinessCategoryListing;
                                 foreach ($bizCat as $bc) {
-                                    $construcCat .= "<i>&nbsp;" . $bc->category->name . "</i>";
+                                    $construcCat .= "<i>&nbsp;" . $bc->name . "</i>";
+                                }
+                                foreach ($images as $img) {
+                                    $directory  = (count($img)>0)? url("/")."/".$img : "";
+                                    $construcImg .= "<img class='img-responsive padding-15 col-md-6' style='height: 300px;'  src='$directory ' >";
                                 }
                                 ?>
-                          <img class="img-responsive"    src="{{(count($image)>0)? url("/")."/".$image[0] : ""}}" >
+                                <div>
+                                    {!! $construcImg !!}
+                                </div>
+
                                 <h2>{{ $b->name }}</h2>
                                 <p class="text-primary">{{ $b->address }}, {{ $b->email }}, {{ $b->phone1 }}
                                     ,{{ $b->phone2 }}</p>
