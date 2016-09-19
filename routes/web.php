@@ -32,7 +32,10 @@ Route::get('/','PageController@home');
 Route::get('/home','PageController@home');
 Route::get('/index','PageController@home');
 Route::post('/search','PageController@search');
+Route::get('/near_me','PageController@near_me');
 Route::get('/biz/{id}','AdminController@biz_view');
+Route::post('ajax/saveLocationToSession/','AdminController@saveLocationToSession');
+
 
 
 Route::group(['middleware' => 'auth'], function () {
@@ -93,5 +96,6 @@ Route::post('api/search', 'ApiController@postsearch');
 
 // external links 
 Route::get('external/create_business','AdminController@external_create_business');
+
 
  

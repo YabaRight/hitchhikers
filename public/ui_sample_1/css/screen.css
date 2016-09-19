@@ -2294,6 +2294,9 @@ html .row-fit-40 [class*="col-"] {
 .no-margin {
   margin: 0 !important;
 }
+.margin-top-30{
+  margin-top: 30px;
+}
 
 .white-bg {
   background: #fff !important;
@@ -2758,18 +2761,21 @@ textarea:focus {
 }
 
 /* -------- Intro Section -------- */
+.padding-15{
+  padding: 15px;
+}
 .hero-box {
-  background-image: url(../img/hero-background.jpg);
+  background-image: url(../img/yaba2.PNG);
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  padding: 300px 0;
+  padding: 207px 0;
 }
 .hero-box .hero-text h1,
 .hero-box .hero-text p {
   text-transform: uppercase;
   line-height: 1em;
-  color: #ffffff;
+  color: rgb(162, 44, 52);
 }
 .hero-box .hero-text h1 {
   font-family: "Raleway", sans-serif;
@@ -2784,6 +2790,9 @@ textarea:focus {
   line-height: 1em;
   font-size: 30px;
   margin: 0 0 80px;
+}
+.header_text_color{
+
 }
 @media (max-width: 768px) {
   .hero-box {

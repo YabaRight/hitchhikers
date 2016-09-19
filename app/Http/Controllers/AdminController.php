@@ -768,6 +768,18 @@ class AdminController extends Controller
         return redirect()->back();
 
     }
+    public function saveLocationToSession(Request $request)
+    {
+        // Specifying a default value...
+        $lt = session('lat', '0');
+        $lng = session('lng', '0');
+
+        // Store a piece of data in the session...
+        session(['lat' => $request->gps_lat]);
+        session(['lng' => $request->gps_lng]);
+
+        return "$request->gps_lat , $request->gps_lng";
+    }
 
 
 }
