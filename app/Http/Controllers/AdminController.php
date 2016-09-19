@@ -68,7 +68,7 @@ class AdminController extends Controller
 //        dd($request->all());
         //save a new category
         $catObj = new Category();
-        $catQ = $catObj->where(['id' => $request->id])->update([
+        $catObj->where(['id' => $request->id])->update([
             'name' => $request->cat_name
         ]);
 

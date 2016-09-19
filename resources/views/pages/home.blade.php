@@ -103,27 +103,10 @@
             <div class="col-md-5">
                 <div class="widget widget_links">
                     <h5 class="widget-title">This Project is Open Source </h5>
-                    {{--<ul>--}}
-                    {{--<li><a href="#">Lorem impsum dolor</a></li>--}}
-                    {{--<li><a href="#">Sit amet consectetur</a></li>--}}
-                    {{--<li><a href="#">Adipisicing elit</a></li>--}}
-                    {{--<li><a href="#">Eiusmod tempor</a></li>--}}
-                    {{--<li><a href="#">incididunt ut labore</a></li>--}}
-                    {{--</ul>--}}
+
                 </div>
             </div>
 
-            {{--<div class="col-md-5">--}}
-            {{--<div class="widget widget_links">--}}
-            {{--<h5 class="widget-title">Featured Boats</h5>--}}
-            {{--<ul>--}}
-            {{--<li><a href="#">Lorem impsum dolor</a></li>--}}
-            {{--<li><a href="#">Sit amet consectetur</a></li>--}}
-            {{--<li><a href="#">Adipisicing elit</a></li>--}}
-            {{--<li><a href="#">Eiusmod tempor</a></li>--}}
-            {{--</ul>--}}
-            {{--</div>--}}
-            {{--</div>--}}
 
             <div class="col-md-9">
                 <div class="widget widget_social">
@@ -174,7 +157,7 @@
             $.ajax({
                 url: '{{url("ajax/saveLocationToSession")}}',
                 type: "post",
-                data: {'_token': tokenn, 'id': "{{Auth::user()->id}}", 'gps_lat': gpsLat, 'gps_lng': gpsLng},
+                data: {'_token': tokenn,   'gps_lat': gpsLat, 'gps_lng': gpsLng},
 
                 success: function (data) {
                     console.log("hi");
