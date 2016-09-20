@@ -48,8 +48,8 @@
         <div class="section-title">
             <div class="container">
                 <h2 class="title">Moving around Yaba just got better. Hiking season is everyday.</h2>
-                <p class="sub-title">#yabaHikers #onlyInYaba #yabacon #yabaPlaces #techCluster #homeOfTech #techSavy
-                    #flexInYaba #shopInYaba #YabaIsBae</p>
+                {{--<p class="sub-title">#yabaHikers #onlyInYaba #yabacon #yabaPlaces #techCluster #homeOfTech #techSavy--}}
+                    {{--#flexInYaba #shopInYaba #YabaIsBae</p>--}}
 
                 @yield('content')
             </div>
@@ -106,6 +106,7 @@
 <!-- Scripts -->
 <script src="{{url('ui_sample_1/js/jquery.js')}}"></script>
 <script src="{{url('ui_sample_1/js/functions.js')}}"></script>
+@yield("script")
 </body>
 </html>
 

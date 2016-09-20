@@ -2761,8 +2761,14 @@ textarea:focus {
 }
 
 /* -------- Intro Section -------- */
+#map {
+  height: 500px;
+}
 .padding-15{
   padding: 15px;
+}
+.margin-15{
+  margin: 15px;
 }
 .hero-box {
   background-image: url(../img/yaba2.PNG);

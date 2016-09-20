@@ -10,6 +10,7 @@
                     <div class=" ">
                         <h4>You searched for <h1>{{$searcher}}</h1></h4>
                         @foreach( $biz as $b)
+                            <a href="{{url('biz/'.$b->id)}}"  >
                             <div class="col-md-3 margin-bottom-30 table-bordered padding-15">
                                 <?php
                                 $image = json_decode($b->image);
@@ -24,20 +25,19 @@
                                          src="{{(count($image)>0)? url("/")."/".$image[0] : ""}} ">
 
                                     <h2>{{ $b->name }}</h2>
-                                    <p class="text-primary">{{ $b->address }}, {{ $b->email }}, {{ $b->phone1 }}
-                                        ,{{ $b->phone2 }}</p>
+                                    <p class="text-primary">{{ $b->address }}, {{ $b->email }}, {{ $b->phone }}
+                                        </p>
                                     <p class="text-primary">Website:
 
-                                    {!!  $b->website !!}
+                                    {!!  $b->url !!}
                                     <p class="text-primary">Category:
 
                                         {!!  $construcCat !!}  </p>
 
-                                    <a href="{{url('biz/'.$b->id)}}" class="btn btn-primary"> <i
-                                                class="fa fa-eye"></i></a>
 
 
-                            </div>
+
+                            </div></a>
                         @endforeach
 
                     </div>
