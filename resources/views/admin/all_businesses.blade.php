@@ -27,7 +27,7 @@
                                 ?>
                                         <!-- <a href="javascript:;" onclick="updateimage({{--$b--}})" class="btn btn-sm btn-danger"> <i
                                     class="fa fa-edit"></i> Edit Image</a> -->
-                                <img class="img-responsive"
+                                <img class="img-responsive" style="height: 200px;"
                                      src="{{(count($image)>0)? url("/")."/".$image[0] : ""}} ">
                                 <h2>{{ $b->name }}</h2>
                                 <p class="text-primary">{{ $b->address }}, {{ $b->email }}, {{ $b->phone }}
