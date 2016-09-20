@@ -29,7 +29,7 @@ class PageController extends Controller
         }
         $constructor_ .= " name LIKE '%$last_val%'";
 
-        $biz = Listing::whereRaw("(" . $constructor_ . " ) ")
+        $biz = Listing::whereRaw("(" . $constructor_ . " ) ")->where("verified", "true")
             ->get();
         return view("pages.search")->with(compact('biz'))->with(compact('searcher'));
 
@@ -37,6 +37,8 @@ class PageController extends Controller
 
     public function near_me(Request $request, $distance = 3)
     {
+        // $distance is in kilometers.
+
         $searcher = " Near me ";
         if ($request->session()->has('lat')) {
             //

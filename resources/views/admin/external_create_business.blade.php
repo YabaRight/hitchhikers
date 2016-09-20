@@ -12,7 +12,7 @@
                 <div class=" ">
                     @include('errors.showerrors')
                     @if($caCount >0)
-                        <form role="form" method="post" action="{{url('admin/create_business')}}"
+                        <form role="form" method="post" action="{{url('admin/external/create_business')}}"
                               enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="form-group"><label class="control-label">Business Name
@@ -35,7 +35,7 @@
                             <div class="form-group"><label class="control-label">Y-coordinates</label><input
                                         class="form-control" name="y_cords" id="us3-lon" placeholder=""
                                       value="{{old('y_cords')}}"  type="text"></div>
-                                      
+                            <input  class="hidden" name="validate"   value="false"  type="text">
                             <div class="form-group"><label class="control-label">Image</label>
                                 <input class="form-control" name="biz_image[]" accept="image/*" type="file" required  multiple></div>
                             <div class="form-group"><label class="control-label">Description</label>
