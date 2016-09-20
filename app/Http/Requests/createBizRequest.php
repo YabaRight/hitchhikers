@@ -26,7 +26,7 @@ class createBizRequest extends FormRequest
         return [
             'name' => 'required|unique:listings',
             // "email" => 'required|unique:listings',
-            "address" =>'required|unique:listings'
+            "address" =>'required'
         ];
     }
 }
