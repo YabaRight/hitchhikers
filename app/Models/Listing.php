@@ -9,7 +9,7 @@ class Listing extends Model {
      */
 
     protected $table = 'listings';
-    protected $fillable = ['id', 'name', 'description', 'address', 'phone', 'x_coordinate', 'y_coordinate', 'email', 'twitter', 'facebook', 'instagram', 'hours', 'url', 'has_attributes', 'image'];
+    protected $fillable = ['id', 'name', 'description', 'address', 'phone','verified', 'x_coordinate', 'y_coordinate', 'email', 'twitter', 'facebook', 'instagram', 'hours', 'url', 'has_attributes', 'image'];
 
 
     public function bussinessCategoryAttributes() {

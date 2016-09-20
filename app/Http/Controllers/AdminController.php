@@ -45,7 +45,8 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function report(){
+    public function report()
+    {
         return view("admin.report");
     }
 
@@ -62,7 +63,7 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-   
+
     public function post_edit_category(Request $request)
     {
 //        dd($request->all());
@@ -74,6 +75,13 @@ class AdminController extends Controller
 
         session()->flash('alert-success', 'Category Updated.  ');
         return redirect()->back();
+    }
+
+    public function all_unverified_businesses()
+    {
+        $biz = Listing::where("verified", "false")->paginate(10);
+        // dd($biz);
+        return view("admin.all_unverified_businesses")->with(compact('biz'));
     }
 
     public function post_create_business(Requests\createBizRequest $request)
@@ -106,6 +114,7 @@ class AdminController extends Controller
             "instagram",
             "hours",
             "cat_id",
+            "validate"
         ];
 
         // get difference
@@ -121,6 +130,7 @@ class AdminController extends Controller
 
         $all_the_properties = [];
         $the_property = [];
+
         foreach ($key_diff as $value) {
             # code...
             $index_value_array = explode("@@", $value);
@@ -163,6 +173,7 @@ class AdminController extends Controller
         $facebook = $request->facebook;
         $instagram = $request->instagram;
         $hours = $request->hours;
+        $validate = $request->validate;
         $biz_catID = $request->cat_id;
 
         // cancel transaction if the biz category is not available
@@ -229,6 +240,7 @@ class AdminController extends Controller
         $bizObj->instagram = $instagram;
         $bizObj->has_attributes = $has_attributes = (count($all_the_properties) > 0) ? 'true' : "false";;
         $bizObj->hours = $hours;
+        $bizObj->verified = $validate;
         $bizObj->image = json_encode($theImages);
         $bizObj->description = $biz_description;
         $bizObj->save();
@@ -270,7 +282,6 @@ class AdminController extends Controller
         session()->flash('alert-success', 'Business Created Successfully.  ');
         return redirect()->back();
     }
-
 
 
     public function update_property(Request $request)
@@ -387,19 +398,18 @@ class AdminController extends Controller
     public function get_cat_property($id = null)
     {
         return getFormInputsForCategory($id);
-//        return ($id);
     }
 
-     public function get_cat_property_edit($id = null,$listing_id=null)
+    public function get_cat_property_edit($id = null, $listing_id = null)
     {
-        return getFormInputsEditsForCategory($listing_id,$id);
+        return getFormInputsEditsForCategory($listing_id, $id);
 //        return ($id);
     }
 
     public function get_biz_property($id = null)
     {
         return getDisplayPropertiesForListing($id);
-//        return ($id);
+
     }
 
     public function update_category(Request $request)
@@ -423,9 +433,22 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+    public function verify_biz($id = null)
+    {
+        if ($id == null) {
+            return redirect()->to('/');
+        }
+        $listingObj = new Listing();
+        $listingObj->where(['id' => $id])->update(['verified' => "true"]);
+        
+        session()->flash('alert-success', 'Business Updated Successfully.  ');
+        return redirect()->back();
+
+    }
+
     public function all_businesses()
     {
-        $biz = Listing::paginate(10);
+        $biz = Listing::where("verified", "true")->paginate(10);
         // dd($biz);
         return view("admin.all_businesses")->with(compact('biz'));
     }
@@ -483,7 +506,7 @@ class AdminController extends Controller
 
     public function update_business(Request $request)
     {
-         // save the request thingy as an array
+        // save the request thingy as an array
         $request_as_array = $request->all();
         // get all the keys sent
         $all_keys = array_keys($request->all());
@@ -571,7 +594,7 @@ class AdminController extends Controller
 // dd($files);
         foreach ($files as $file) {
             if ($file != null) {
-                 if (($file->getClientSize() > 512000) || ($file->getClientSize() == 0)) {
+                if (($file->getClientSize() > 512000) || ($file->getClientSize() == 0)) {
 
                     session()->flash('alert-danger', ' An Image size is too large. Max of 500kb required.');
                     return redirect()->back();
@@ -652,17 +675,17 @@ class AdminController extends Controller
 
         }
         if ($has_attributes == "true") {
-             $queryInsertCatInfo = [];
+            $queryInsertCatInfo = [];
             # code...
             $queryInsertCatInfo[] = array(
                 'listing_id' => $listing_id,
-                 'category_id' => $biz_catID,
-                 'created_at' => Carbon::now(),
+                'category_id' => $biz_catID,
+                'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             );
 
-             DB::table('listing_attributes')->insert($queryInsertProData);
-             DB::table('listing_categories')->insert($queryInsertCatInfo);
+            DB::table('listing_attributes')->insert($queryInsertProData);
+            DB::table('listing_categories')->insert($queryInsertCatInfo);
 
         }
 
@@ -693,25 +716,26 @@ class AdminController extends Controller
         return view("admin.hits")->with(compact("hits"));
     }
 
-     public function view_category_details($id = null){
-        if ( ($id == null)||($id < 1) ) {
+    public function view_category_details($id = null)
+    {
+        if (($id == null) || ($id < 1)) {
             # code...
             session()->flash('alert-info', 'Category Error.  ');
             return redirect()->back();
         }
 
-        $getListingIdsForCategory =  ListingCategory::where('category_id',$id)->pluck('listing_id')->toArray();
-        $getCatObj = BussinessCategory::where('id',$id)->first();
-        if (count($getCatObj) > 0 ) {
+        $getListingIdsForCategory = ListingCategory::where('category_id', $id)->pluck('listing_id')->toArray();
+        $getCatObj = BussinessCategory::where('id', $id)->first();
+        if (count($getCatObj) > 0) {
             # code...
             $catName = $getCatObj->name;
-        }else{
+        } else {
             $catName = "Invalid Category";
         }
-        
+
         $biz = Listing::whereIn('id', $getListingIdsForCategory)->paginate(10);
         $biz_count = Listing::whereIn('id', $getListingIdsForCategory)->count();
-        return view("admin.view_category_listing")->with(compact('catName','biz','biz_count'));
+        return view("admin.view_category_listing")->with(compact('catName', 'biz', 'biz_count'));
     }
 
 
@@ -739,11 +763,11 @@ class AdminController extends Controller
             // Making counting of uploaded images
             $file_count = count($file);
             // start   uploaded
-        if (($file->getClientSize() > 512000) || ($file->getClientSize() == 0)) {
+            if (($file->getClientSize() > 512000) || ($file->getClientSize() == 0)) {
 
-                    session()->flash('alert-danger', ' An Image size has exceeded 500kb');
-                    return redirect()->back();
-                }
+                session()->flash('alert-danger', ' An Image size has exceeded 500kb');
+                return redirect()->back();
+            }
             $rules = array('file' => 'required|mimes:png,gif,jpeg,JPG,PNG,JPEG'); //'required|mimes:png,gif,jpeg,txt,pdf,doc'
             $validator = Validator::make(array('file' => $file), $rules);
             if ($validator->passes()) {
@@ -768,6 +792,7 @@ class AdminController extends Controller
         return redirect()->back();
 
     }
+
     public function saveLocationToSession(Request $request)
     {
         // Specifying a default value...

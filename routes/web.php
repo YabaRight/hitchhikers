@@ -62,6 +62,8 @@ Route::get('admin/biz/{id}','AdminController@view_biz');
 Route::get('admin/report','AdminController@report');
 Route::get('admin/view_category/{id}','AdminController@view_category_details');
 
+Route::get('admin/verify_biz/{id}','AdminController@verify_biz');
+Route::get('admin/verify_biz','AdminController@verify_biz');
 Route::get('admin/edit_biz/{id}','AdminController@edit_biz');
 Route::post('admin/update_business','AdminController@update_business');
 Route::get('admin/update_imgs/{listing_id}/{img}', 'AdminController@update_imgs');
@@ -69,9 +71,11 @@ Route::get('admin/update_imgs/{listing_id}/{img}', 'AdminController@update_imgs'
 Route::post('admin/update_biz','AdminController@update_biz');
 Route::post('admin/update_image','AdminController@update_image');
 Route::post('admin/create_business','AdminController@post_create_business');
+
 Route::get('admin/delete_biz/{id}','AdminController@delete_biz');
 
 Route::get('/all_businesses','AdminController@all_businesses');
+Route::get('/all_unverified_businesses','AdminController@all_unverified_businesses');
 
 
 Route::get('/hits','AdminController@hits');
@@ -100,6 +104,6 @@ Route::post('api/search', 'ApiController@postsearch');
 
 // external links 
 Route::get('external/create_business','AdminController@external_create_business');
-
+Route::post('admin/external/create_business','AdminController@post_create_business');
 
  

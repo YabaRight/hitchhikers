@@ -5,7 +5,7 @@
 
     <div class="col-md-9">
         <div class="section">
-            <h3>All Verified Businesses </h3>
+            <h3>All Unverified Businesses </h3>
             <br/>
 
             <div class=" ">
@@ -27,7 +27,7 @@
                                 ?>
                                         <!-- <a href="javascript:;" onclick="updateimage({{--$b--}})" class="btn btn-sm btn-danger"> <i
                                     class="fa fa-edit"></i> Edit Image</a> -->
-                                <img class="img-responsive"
+                                <img class="img-responsive" style="height: 200px;"
                                      src="{{(count($image)>0)? url("/")."/".$image[0] : ""}} ">
                                 <h2>{{ $b->name }}</h2>
                                 <p class="text-primary">{{ $b->address }}, {{ $b->email }}, {{ $b->phone }}
@@ -39,12 +39,15 @@
                                 <p class="text-primary">Category:
 
                                     {!!  $construcCat !!}  </p>
-                                <a href="{{url('admin/edit_biz/'.$b->id)}}" class="btn btn-primary">
+                                <a href="{{url('admin/verify_biz/'.$b->id)}}" title="Verify" class="btn btn-primary">
+                                    <i class="fa fa-magic"></i>
+                                </a>
+                                <a href="{{url('admin/edit_biz/'.$b->id)}}" title="Edit" class="btn btn-primary">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <a href="{{url('admin/biz/'.$b->id)}}" class="btn btn-primary"> <i
+                                <a href="{{url('admin/biz/'.$b->id)}}"  title="View" class="btn btn-primary"> <i
                                             class="fa fa-eye"></i></a>
-                                <a href="javascript:;" onclick="delBiz({{$b->id}})" class="btn btn-danger"> <i
+                                <a href="javascript:;" title="Delete" onclick="delBiz({{$b->id}})" class="btn btn-danger"> <i
                                             class="fa fa-trash-o"></i></a>
 
                             </div>
@@ -55,7 +58,7 @@
 
                     </div>
                 @else
-                    <h2>No Verified Business</h2>
+                    <h2>No Unverified Business</h2>
                 @endif
             </div>
         </div>

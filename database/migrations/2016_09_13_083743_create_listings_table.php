@@ -27,6 +27,7 @@ class CreateListingsTable extends Migration {
 			$table->string('instagram', 100);
 			$table->string('hours', 100);
 			$table->string('url', 100);
+			$table->string('verified', 6)->default("false");
 			$table->string('has_attributes', 6);
 			$table->text('image', 65535);
 			$table->timestamps();
