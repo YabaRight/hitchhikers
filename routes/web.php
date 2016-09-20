@@ -33,8 +33,12 @@ Route::get('/home','PageController@home');
 Route::get('/index','PageController@home');
 Route::post('/search','PageController@search');
 Route::get('/near_me','PageController@near_me');
+Route::get('/get_map_direction/{x}/{y}','PageController@get_map_direction');
+Route::get('/get_map_direction/{x}','PageController@get_map_direction');
+Route::get('/get_map_direction','PageController@get_map_direction');
 Route::get('/biz/{id}','AdminController@biz_view');
 Route::post('ajax/saveLocationToSession/','AdminController@saveLocationToSession');
+
 
 
 

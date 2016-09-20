@@ -10,7 +10,8 @@
                     <div class=" ">
                         <h4>Showing Places Near {{ucwords($area)}}</h4>
                         @foreach( $biz as $b)
-                            <div class="col-md-3 margin-bottom-30 table-bordered">
+                            <a href="{{url('biz/'.$b->id)}}" >
+                            <div class="col-md-3 margin-bottom-30 table-bordered padding-15 margin-15">
                                 <?php
                                 $image = json_decode($b->image);
                                 $construcCat = "";
@@ -20,12 +21,11 @@
                                 }
                                 ?>
 
-                                    <img class="img-responsive"
+                                    <img class="img-responsive" style="height: 200px;"
                                          src="{{(count($image)>0)? url("/")."/".$image[0] : ""}} ">
 
                                     <h2>{{ $b->name }}</h2>
-                                    <p class="text-primary">{{ $b->address }}, {{ $b->email }}, {{ $b->phone1 }}
-                                        ,{{ $b->phone2 }}</p>
+                                    <p class="text-primary">{{ $b->address }}, {{ $b->email }}, {{ $b->phone }}</p>
                                     <p class="text-primary">Website:
 
                                     {!!  $b->website !!}
@@ -33,11 +33,11 @@
 
                                         {!!  $construcCat !!}  </p>
 
-                                    <a href="{{url('biz/'.$b->id)}}" class="btn btn-primary"> <i
-                                                class="fa fa-eye"></i></a>
+                                  {{--<i--}}
+                                                {{--class="fa fa-eye"></i>--}}
 
 
-                            </div>
+                            </div></a>
                         @endforeach
 
                     </div>

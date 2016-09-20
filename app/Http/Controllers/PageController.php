@@ -35,7 +35,7 @@ class PageController extends Controller
 
     }
 
-    public function near_me(Request $request,$distance = 3)
+    public function near_me(Request $request, $distance = 3)
     {
         $searcher = " Near me ";
         if ($request->session()->has('lat')) {
@@ -59,17 +59,20 @@ class PageController extends Controller
         }
 
 // radius of earth; @note: the earth is not perfectly spherical, but this is considered the 'mean radius'
-        $unit = 'km' ;
-        if( $unit == 'km' ) { $radius = 6371.009; }
-        elseif ( $unit == 'mi' ) { $radius = 3958.761; }
+        $unit = 'km';
+        if ($unit == 'km') {
+            $radius = 6371.009;
+        } elseif ($unit == 'mi') {
+            $radius = 3958.761;
+        }
 
         // latitude boundaries
-        $maxLat = ( float )$getLat + rad2deg( $distance / $radius );
-        $minLat = ( float ) $getLat - rad2deg( $distance / $radius );
+        $maxLat = ( float )$getLat + rad2deg($distance / $radius);
+        $minLat = ( float )$getLat - rad2deg($distance / $radius);
 
         // longitude boundaries (longitude gets smaller when latitude increases)
-        $maxLng = ( float ) $getLng + rad2deg( $distance / $radius) / cos( deg2rad( ( float ) $getLat ) );
-        $minLng = ( float ) $getLng - rad2deg( $distance / $radius) / cos( deg2rad( ( float ) $getLat ) );
+        $maxLng = ( float )$getLng + rad2deg($distance / $radius) / cos(deg2rad(( float )$getLat));
+        $minLng = ( float )$getLng - rad2deg($distance / $radius) / cos(deg2rad(( float )$getLat));
 
         $max_min_values = array(
             'max_latitude' => $maxLat,
@@ -78,10 +81,10 @@ class PageController extends Controller
             'min_longitude' => $minLng
         );
 //        dd($max_min_values);
-        $area  =  $this->getArea($getLat,$getLng);
+        $area = $this->getArea($getLat, $getLng);
 
         $biz = Listing::whereBetween('x_coordinate', [$minLat, $maxLat])->whereBetween('y_coordinate', [$minLng, $maxLng])->get();
-        return view("pages.near_me")->with(compact('biz'))->with(compact('searcher',"area"));
+        return view("pages.near_me")->with(compact('biz'))->with(compact('searcher', "area"));
 
     }
 
@@ -93,5 +96,16 @@ class PageController extends Controller
     public function register()
     {
         return view("pages.register");
+    }
+
+    public function get_map_direction($x = null, $y = null)
+    {
+        if(($x == null ) || ($y == null)){
+            session()->flash('alert-danger', ' Destination is not valid ');
+            return redirect()->back();
+         }
+        $address = $this->getAddress($x,$y);
+        return view("pages.view_direction")->with(compact('x', "y",'address'));
+        
     }
 }
